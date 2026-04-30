@@ -3835,7 +3835,7 @@ pub fn Wrap(comptime bindings: anytype) type {
 
         pub fn getError() Error {
             const res = bindings.getError();
-            return std.meta.intToEnum(Error, res) catch onInvalid: {
+            return std.enums.fromInt(Error, res) orelse onInvalid: {
                 log.warn("getError returned unexpected value {}", .{res});
                 break :onInvalid .no_error;
             };
@@ -6928,7 +6928,7 @@ pub fn Wrap(comptime bindings: anytype) type {
         // pub var checkFramebufferStatus: *const fn (target: Enum) callconv(.c) Enum = undefined;
         pub fn checkFramebufferStatus(target: FramebufferTarget) FramebufferStatus {
             const res = bindings.checkFramebufferStatus(@intFromEnum(target));
-            return std.meta.intToEnum(FramebufferStatus, res) catch onInvalid: {
+            return std.enums.fromInt(FramebufferStatus, res) orelse onInvalid: {
                 log.warn("checkFramebufferStatus returned unexpected value {}", .{res});
                 break :onInvalid .complete;
             };
