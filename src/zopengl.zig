@@ -6,7 +6,7 @@ const build_options = @import("build_options");
 
 comptime {
     @setEvalBranchQuota(20_000);
-    _ = std.testing.refAllDeclsRecursive(@This());
+    _ = std.testing.refAllDecls(@This());
 }
 
 pub const bindings = @import("bindings.zig");
